@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Детекция проезда на красный свет</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Система детекции проезда на красный свет</h1>
+            <p class="subtitle">Искусственный интеллект для контроля дорожного движения</p>
+        </header>
+
+        <main>
+            <section class="upload-section">
+                <h2>Загрузка изображения</h2>
+                <div class="dropzone" id="dropzone">
+                    <div class="dropzone-content">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="17 8 12 3 7 8"/>
+                            <line x1="12" y1="3" x2="12" y2="15"/>
+                        </svg>
+                        <p>Перетащите изображение сюда</p>
+                        <span>или</span>
+                        <label class="file-input-label">
+                            <input type="file" id="fileInput" accept="image/*">
+                            Выберите файл
+                        </label>
+                    </div>
+                </div>
+                <button id="processBtn" class="btn-primary" disabled>Запустить обработку</button>
+            </section>
+
+            <section class="preview-section" id="previewSection" style="display: none;">
+                <h2>Загруженное изображение</h2>
+                <div class="image-container">
+                    <img id="previewImage" src="" alt="Предварительный просмотр">
+                </div>
+            </section>
+
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <h2>Результаты обработки</h2>
+                <div class="results-grid">
+                    <div class="image-container">
+                        <h3>Обработанное изображение</h3>
+                        <img id="resultImage" src="" alt="Результат">
+                    </div>
+                    <div class="stats-container">
+                        <h3>Статистика</h3>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <span class="stat-value" id="totalCars">0</span>
+                                <span class="stat-label">Автомобилей</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-value" id="totalLights">0</span>
+                                <span class="stat-label">Светофоров</span>
+                            </div>
+                            <div class="stat-card warning">
+                                <span class="stat-value" id="violations">0</span>
+                                <span class="stat-label">Нарушений</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-value" id="processingTime">0</span>
+                                <span class="stat-label">Время (с)</span>
+                            </div>
+                        </div>
+                        <div class="light-stats">
+                            <div class="light-stat red">
+                                <span class="light-dot"></span>
+                                <span>Красные: <strong id="redLights">0</strong></span>
+                            </div>
+                            <div class="light-stat yellow">
+                                <span class="light-dot"></span>
+                                <span>Желтые: <strong id="yellowLights">0</strong></span>
+                            </div>
+                            <div class="light-stat green">
+                                <span class="light-dot"></span>
+                                <span>Зеленые: <strong id="greenLights">0</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="export-section">
+                <h2>Экспорт отчетов</h2>
+                <div class="export-buttons">
+                    <a href="/export/pdf" class="btn-secondary">Скачать PDF</a>
+                    <a href="/export/excel" class="btn-secondary">Скачать Excel</a>
+                </div>
+            </section>
+
+            <section class="history-section">
+                <h2>История обработки</h2>
+                <div id="historyContainer" class="history-container">
+                    <p class="loading">Загрузка...</p>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Практика: Системы искусственного интеллекта | МТУСИ 2026</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
